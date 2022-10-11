@@ -44,4 +44,4 @@ map('v', '>', '>gv')
 map('v', '<', '<gv')
 
 -- Key mapping for nvim toggle
-map('n', '<leader>fb', ':NvimTreeToggle<CR>')
+map('n', '<leader>b', ':NvimTreeToggle<CR>')

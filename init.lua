@@ -6,4 +6,8 @@ require('bufferline-config')
 require('keybindings')
 require('nvim-tree-config')
 require('autopairs-config')
+require('which-key-config')
+require('telescope-config')
+require('dashboard-config')
 vim.cmd('colorscheme nord')
+

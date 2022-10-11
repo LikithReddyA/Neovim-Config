@@ -21,6 +21,11 @@ return require('packer').startup({
         -- Color Scheme    --
         ---------------------
         use 'shaunsingh/nord.nvim'
+
+        ---------------------
+        -- Which key       --
+        ---------------------
+        use 'folke/which-key.nvim'
         ---------------------
         --   Treesitter    --
         ---------------------
@@ -33,6 +38,14 @@ return require('packer').startup({
         use {
             "windwp/nvim-autopairs"
         }
+        ---------------------
+        --   Telescope     --
+        ---------------------
+        use {
+          'nvim-telescope/telescope.nvim',
+          requires = { {'nvim-lua/plenary.nvim'} }
+        }
+ 
         ---------------------
         --   Nvim Tree     --
         ---------------------
@@ -54,5 +67,18 @@ return require('packer').startup({
             tag = "v2.*",
             requires = 'kyazdani42/nvim-web-devicons'
         }
+        use {'glepnir/dashboard-nvim'}
+
+        -- Lsp setup for neovim
+        use { 'neovim/nvim-lspconfig', config = "require('lsp')" }
+        use { 'hrsh7th/cmp-nvim-lsp' }
+        use { 'hrsh7th/cmp-buffer' }
+        use { 'hrsh7th/nvim-cmp' }
+        use { 'hrsh7th/cmp-vsnip' }
+        use { 'hrsh7th/vim-vsnip' }
+        use { 'onsails/lspkind-nvim' }
+        use { 'tami5/lspsaga.nvim', config = "require('lspsaga-config')" }
+        use { 'williamboman/nvim-lsp-installer' }
+        use { 'jose-elias-alvarez/null-ls.nvim', config = "require('null-ls-config')" }
   end
 })
