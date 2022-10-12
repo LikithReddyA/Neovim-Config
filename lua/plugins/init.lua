@@ -12,7 +12,16 @@ return require('packer').startup({
     function(use)
         -- Packer can manage itself
         use 'wbthomason/packer.nvim'
+        -- Color Scheme
         -- use { 'rose-pine/neovim', config = "vim.cmd('colorscheme rose-pine')" }
+        -- use { 'shaunsingh/nord.nvim', config = "vim.cmd('colorscheme nord')" }
+        use {
+            "sainnhe/everforest",
+            config = function()
+                vim.cmd "colorscheme everforest"
+            end,
+        }
+
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
@@ -61,13 +70,27 @@ return require('packer').startup({
                 require('gitsigns').setup { current_line_blame = true }
             end
         }
-        use { 'glepnir/dashboard-nvim', config = "require('dashboard-config')" }
+        -- Startup screen
+        use {
+            "goolord/alpha-nvim",
+            config = function()
+                require("alpha-config").setup()
+            end,
+        }
+        -- use { 'glepnir/dashboard-nvim', config = "require('dashboard-config')" }
+
         use { 'tami5/lspsaga.nvim', config = "require('lspsaga-config')" }
         use { 'williamboman/nvim-lsp-installer' }
         use { 'jose-elias-alvarez/null-ls.nvim', config = "require('null-ls-config')" }
-        use { 'shaunsingh/nord.nvim', config = "vim.cmd('colorscheme nord')" }
         -- Flutter
         use { 'akinsho/flutter-tools.nvim', config = "require('flutter-tools-config')" }
+        -- comments
+        use {
+            'numToStr/Comment.nvim',
+            config = function()
+                require('Comment').setup()
+            end
+        }
     end,
     config = {
         display = {
