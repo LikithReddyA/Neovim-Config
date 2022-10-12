@@ -134,6 +134,93 @@ function M.setup()
       cmd = { "MarkdownPreview" },
     }
 
+		-- Lualine for statusline
+		use {
+			"nvim-lualine/lualine.nvim",
+			event = "VimEnter",
+			config = function()
+			 require("config.lualine").setup()
+			end,
+			requires = { "nvim-web-devicons" },
+		}
+
+		--Nvim-Tree for file explorer
+		use {
+		 "kyazdani42/nvim-tree.lua",
+		 requires = {
+			 "kyazdani42/nvim-web-devicons",
+		 },
+		 cmd = { "NvimTreeToggle", "NvimTreeClose" },
+			 config = function()
+				 require("config.nvimtree").setup()
+			 end,
+		}
+
+		-- Buffer line
+		use {
+			"akinsho/nvim-bufferline.lua",
+			event = "BufReadPre",
+			wants = "nvim-web-devicons",
+			config = function()
+				require("config.bufferline").setup()
+			end,
+		}
+		
+		-- Completions
+		use {
+			"hrsh7th/nvim-cmp",
+			event = "InsertEnter",
+			opt = true,
+			config = function()
+				require("config.cmp").setup()
+			end,
+			wants = { "LuaSnip" },
+			requires = {
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+				"hrsh7th/cmp-nvim-lua",
+				"ray-x/cmp-treesitter",
+				"hrsh7th/cmp-cmdline",
+				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-calc",
+				"f3fora/cmp-spell",
+				"hrsh7th/cmp-emoji",
+				{
+					"L3MON4D3/LuaSnip",
+					wants = "friendly-snippets",
+					config = function()
+						require("config.luasnip").setup()
+					end,
+				},
+				"rafamadriz/friendly-snippets",
+				disable = false,
+			},
+		}
+
+
+ -- Treesitter
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      opt = true,
+      event = "BufRead",
+      run = ":TSUpdate",
+      config = function()
+        require("config.treesitter").setup()
+      end,
+      requires = {
+        { "nvim-treesitter/nvim-treesitter-textobjects" },
+      },
+    }
+		-- Auto pairs
+		use {
+			"windwp/nvim-autopairs",
+			wants = "nvim-treesitter",
+			module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
+			config = function()
+				require("config.autopairs").setup()
+			end,
+		}
+
     -- Bootstrap Neovim
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
