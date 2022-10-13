@@ -182,6 +182,7 @@ function M.setup()
 				"ray-x/cmp-treesitter",
 				"hrsh7th/cmp-cmdline",
 				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-calc",
 				"f3fora/cmp-spell",
 				"hrsh7th/cmp-emoji",
@@ -198,7 +199,7 @@ function M.setup()
 		}
 
 
- -- Treesitter
+		-- Treesitter
     use {
       "nvim-treesitter/nvim-treesitter",
       opt = true,
@@ -220,6 +221,70 @@ function M.setup()
 				require("config.autopairs").setup()
 			end,
 		}
+
+		-- LSP
+		use {
+			"neovim/nvim-lspconfig",
+			opt = true,
+			event = "BufReadPre",
+			wants = { "nvim-lsp-installer", "lsp_signature.nvim", "cmp-nvim-lsp", "null-ls.nvim" },
+			config = function()
+				require("config.lsp").setup()
+			end,
+			requires = {
+				"williamboman/nvim-lsp-installer",
+				"ray-x/lsp_signature.nvim",
+				"jose-elias-alvarez/null-ls.nvim",
+						{
+							"j-hui/fidget.nvim",
+							config = function()
+								require("fidget").setup {}
+							end,
+						},
+			},
+		}
+		use {
+			"nvim-telescope/telescope.nvim",
+			opt = true,
+			config = function()
+				require("config.telescope").setup()
+			end,
+			cmd = { "Telescope" },
+			module = "telescope",
+			keys = { "<leader>f", "<leader>p" },
+			wants = {
+				"plenary.nvim",
+				"popup.nvim",
+				"telescope-fzf-native.nvim",
+				"telescope-project.nvim",
+				"telescope-repo.nvim",
+				"telescope-file-browser.nvim",
+				"project.nvim",
+			},
+			requires = {
+				"nvim-lua/popup.nvim",
+				"nvim-lua/plenary.nvim",
+				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+				"nvim-telescope/telescope-project.nvim",
+				"cljoly/telescope-repo.nvim",
+				"nvim-telescope/telescope-file-browser.nvim",
+				{
+					"ahmedkhalf/project.nvim",
+					config = function()
+						require("project_nvim").setup {}
+					end,
+				},
+			},
+		}
+
+	 	-- Notification
+    -- use {
+    --   "rcarriga/nvim-notify",
+    --   event = "VimEnter",
+    --   config = function()
+    --     vim.notify = require "notify"
+    --   end,
+    -- }
 
     -- Bootstrap Neovim
     if packer_bootstrap then
