@@ -221,6 +221,63 @@ function M.setup()
 			end,
 		}
 
+		use {
+			"nvim-telescope/telescope.nvim",
+			opt = true,
+			config = function()
+				require("config.telescope").setup()
+			end,
+			cmd = { "Telescope" },
+			module = "telescope",
+			keys = { "<leader>f", "<leader>p" },
+			wants = {
+				"plenary.nvim",
+				"popup.nvim",
+				"telescope-fzf-native.nvim",
+				"telescope-project.nvim",
+				"telescope-repo.nvim",
+				"telescope-file-browser.nvim",
+				"project.nvim",
+			},
+			requires = {
+				"nvim-lua/popup.nvim",
+				"nvim-lua/plenary.nvim",
+				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+				"nvim-telescope/telescope-project.nvim",
+				"cljoly/telescope-repo.nvim",
+				"nvim-telescope/telescope-file-browser.nvim",
+				{
+					"ahmedkhalf/project.nvim",
+					config = function()
+						require("project_nvim").setup {}
+					end,
+				},
+			},
+		}
+
+		-- User interface
+		use {
+			"stevearc/dressing.nvim",
+			event = "BufEnter",
+			config = function()
+			require("dressing").setup {
+				select = {
+					backend = { "telescope", "fzf", "builtin" },
+			},
+		}
+      end,
+      disable = true,
+    }
+
+		-- Notification
+    use {
+      "rcarriga/nvim-notify",
+      event = "VimEnter",
+      config = function()
+        vim.notify = require "notify"
+      end,
+    }
+
     -- Bootstrap Neovim
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
