@@ -23,6 +23,9 @@ opt.updatetime = 250 --Decrease update time
 opt.signcolumn = "yes" -- Always show sign column
 opt.clipboard = "unnamedplus" -- Access system clipboard
 
+opt.splitbelow = true --Split the window horizontally in below
+opt.splitright = true -- Split the window vertically in right
+
 -- Highlight on yank
 vim.cmd [[
   augroup YankHighlight

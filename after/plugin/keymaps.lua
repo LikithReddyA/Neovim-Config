@@ -33,3 +33,9 @@ keymap("n", "<Left>", ":vertical resize +1<CR>", default_opts)
 keymap("n", "<Right>", ":vertical resize -1<CR>", default_opts)
 keymap("n", "<Up>", ":resize -1<CR>", default_opts)
 keymap("n", "<Down>", ":resize +1<CR>", default_opts)
+
+-- Navigation to split windows
+keymap("n", "<C-j>", "<C-w>j", default_opts)
+keymap("n", "<C-k>", "<C-w>k", default_opts)
+keymap("n", "<C-h>", "<C-w>h", default_opts)
+keymap("n", "<C-l>", "<C-w>l", default_opts)
