@@ -3,26 +3,25 @@ local M = {}
 -- Custom actions
 local transform_mod = require("telescope.actions.mt").transform_mod
 local nvb_actions = transform_mod {
-	file_path = function(prompt_bufnr)
-		-- Get selected entry and the file full path
-		local content = require("telescope.actions.state").get_selected_entry()
-		local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+  file_path = function(prompt_bufnr)
+    -- Get selected entry and the file full path
+    local content = require("telescope.actions.state").get_selected_entry()
+    local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
 
-		-- Yank the path to unnamed register
-		vim.fn.setreg('"', full_path)
+    -- Yank the path to unnamed register
+    vim.fn.setreg('"', full_path)
 
-		-- Close the popup
-		require("utils").info "File path is yanked "
-		require("telescope.actions").close(prompt_bufnr)
-	end,
+    -- Close the popup
+    require("utils").info "File path is yanked "
+    require("telescope.actions").close(prompt_bufnr)
+  end,
 }
-
 
 function M.setup()
   local actions = require "telescope.actions"
   local telescope = require "telescope"
 
-		-- Custom previewer
+  -- Custom previewer
   local previewers = require "telescope.previewers"
   local Job = require "plenary.job"
   local preview_maker = function(filepath, bufnr, opts)
@@ -58,7 +57,7 @@ function M.setup()
 
   telescope.setup {
     defaults = {
-			buffer_previewer_maker = preview_maker,
+      buffer_previewer_maker = preview_maker,
       mappings = {
         i = {
           ["<C-j>"] = actions.move_selection_next,
@@ -67,30 +66,30 @@ function M.setup()
           ["<C-p>"] = actions.cycle_history_prev,
         },
       },
-			pickers = {
-				find_files = {
-					theme = "ivy",
-					mappings = {
-						n = {
-							["y"] = nvb_actions.file_path,
-						},
-						i = {
-							["<C-y>"] = nvb_actions.file_path,
-						},
-					},
-				},
-				git_files = {
-					theme = "dropdown",
-					mappings = {
-						n = {
-							["y"] = nvb_actions.file_path,
-						},
-						i = {
-							["<C-y>"] = nvb_actions.file_path,
-						},
-					},
-				},
-			},
+    },
+    pickers = {
+      find_files = {
+        theme = "ivy",
+        mappings = {
+          n = {
+            ["y"] = nvb_actions.file_path,
+          },
+          i = {
+            ["<C-y>"] = nvb_actions.file_path,
+          },
+        },
+      },
+      git_files = {
+        theme = "dropdown",
+        mappings = {
+          n = {
+            ["y"] = nvb_actions.file_path,
+          },
+          i = {
+            ["<C-y>"] = nvb_actions.file_path,
+          },
+        },
+      },
     },
   }
 
