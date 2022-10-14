@@ -24,7 +24,7 @@ local custom_theme = require("telescope.themes").get_dropdown {
 local custom_pickers = {
   dotfiles = {
     theme = custom_theme,
-    cwd = "~/.config/",
+		cwd = "~/.config/nvim/",
     fun = "fd",
   },
 }
