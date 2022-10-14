@@ -183,6 +183,7 @@ function M.setup()
 				"hrsh7th/cmp-cmdline",
 				"saadparwaiz1/cmp_luasnip",
 				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-nvim-lsp-signature-help",
 				{
 					"L3MON4D3/LuaSnip",
 					wants = "friendly-snippets",
@@ -281,14 +282,23 @@ function M.setup()
 			"neovim/nvim-lspconfig",
 			opt = true,
 			event = "BufReadPre",
-			wants = { "nvim-lsp-installer" , "lsp_signature.nvim" , "cmp-nvim-lsp"  },
+			wants = { "nvim-lsp-installer" , --[[ "lsp_signature.nvim" , ]] "cmp-nvim-lsp"  },
 			config = function()
 				require("config.lsp").setup()
 			end,
 			requires = {
 				"williamboman/nvim-lsp-installer",
-				"ray-x/lsp_signature.nvim",
+				-- "ray-x/lsp_signature.nvim",
 			},
+		}
+
+		-- Flutter
+		use {
+			"akinsho/flutter-tools.nvim",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = function()
+				require("config.flutter").setup()
+			end,
 		}
 
     -- Bootstrap Neovim
