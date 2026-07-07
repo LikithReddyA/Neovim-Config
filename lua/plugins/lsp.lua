@@ -28,44 +28,12 @@ vim.lsp.config("*", {
 })
 
 -----------------------------------------------------------------------
--- Lua Language Server
------------------------------------------------------------------------
-
-vim.lsp.config("lua_ls", {
-    cmd = { "lua-language-server" },
-
-    filetypes = { "lua" },
-
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { "vim" },
-            },
-
-            workspace = {
-                checkThirdParty = false,
-            },
-
-            telemetry = {
-                enable = false,
-            },
-
-            hint = {
-                enable = true,
-                setType = true,
-                paramType = true,
-                paramName = "Disable",
-                semicolon = "Disable",
-                arrayIndex = "Disable",
-            },
-        },
-    },
-})
-
------------------------------------------------------------------------
 -- Enable Servers
 -----------------------------------------------------------------------
 
 vim.lsp.enable({
     "lua_ls",
+    "basedpyright",
+    "ruff",
+    "clangd",
 })

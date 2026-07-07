@@ -1,6 +1,6 @@
 # Neovim Configuration
 
-A lightweight, modular Neovim configuration built entirely on Neovim's native APIs.
+A lightweight, modular Neovim configuration built around Neovim's native APIs and modern plugin ecosystem.
 
 ## Philosophy
 
@@ -9,39 +9,168 @@ A lightweight, modular Neovim configuration built entirely on Neovim's native AP
 * Native Neovim features wherever possible
 * Fast startup
 * Well-commented, maintainable Lua code
+* Project-specific tooling over editor-specific configuration
 
-## Requirements
+---
+
+# Design Goals
+
+This configuration intentionally avoids large framework plugins and language manager plugins where Neovim already provides native functionality.
+
+Examples:
+
+* Package management via `vim.pack`
+* LSP via `vim.lsp.config()` and `vim.lsp.enable()`
+* Formatting via `vim.lsp.buf.format()`
+* Diagnostics via Neovim's built-in diagnostic API
+
+External plugins are only used when they provide functionality beyond Neovim itself, such as Flutter development, fuzzy finding, snippets, and completion.
+
+---
+
+# Requirements
+
+## Core
 
 * Neovim 0.11+
 * Git
 * Nerd Font
-* Ripgrep (`rg`)
+
+## CLI Tools
+
+* ripgrep (`rg`)
 * fd
 * fzf
 
-## Features
+## Language Servers
+
+* Lua Language Server (`lua_ls`)
+* BasedPyright
+* Ruff
+* Clangd
+
+## Optional
+
+* Flutter SDK (for Flutter development)
+
+---
+
+# Installation (macOS)
+
+## Install Core Dependencies
+
+```bash
+brew install git ripgrep fd fzf
+```
+
+## Install Lua Language Server
+
+```bash
+brew install lua-language-server
+```
+
+## Install Python Tools
+
+Install BasedPyright (requires Node.js):
+
+```bash
+brew install node
+npm install -g basedpyright
+```
+
+Install Ruff:
+
+```bash
+brew install ruff
+```
+
+Alternatively:
+
+```bash
+brew install uv
+uv tool install ruff
+```
+
+## Install C/C++
+
+```bash
+brew install llvm
+```
+
+Add LLVM to your PATH:
+
+```bash
+echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Verify:
+
+```bash
+clangd --version
+clang-format --version
+```
+
+## Flutter
+
+Install Flutter following the official installation guide.
+
+Ensure these commands are available:
+
+```bash
+flutter --version
+dart --version
+```
+
+---
+
+# Features
 
 * Native package manager (`vim.pack`)
-* Built-in LSP configuration
+* Native LSP configuration (`vim.lsp.config` / `vim.lsp.enable`)
+* Native formatting via `vim.lsp.buf.format()`
 * Tree-sitter syntax highlighting
 * Blink completion
 * LuaSnip snippets
 * FZF-Lua fuzzy finder
+* Mini.nvim utilities
 * NvimTree file explorer
 * Flutter development support
 * Git integration via Gitsigns
-* Custom statusline, tabline and statuscolumn
+* Custom statusline
+* Custom tabline
+* Custom statuscolumn
 * Custom buffer utilities
 
-## Project Structure
+---
+
+# Supported Languages
+
+| Language       | Language Server      | Formatter     |
+| -------------- | -------------------- | ------------- |
+| Lua            | `lua_ls`             | `lua_ls`      |
+| Python         | `basedpyright`       | `ruff`        |
+| C/C++          | `clangd`             | `clangd`      |
+| Dart / Flutter | `flutter-tools.nvim` | `dart format` |
+
+---
+
+# Project Structure
 
 ```text
-lua/
-├── config/          # Core configuration
-├── plugins/         # Plugin setup
-├── ui/              # Statusline, tabline, highlights
-├── utils/           # Reusable helper modules
-└── snippets/        # Custom LuaSnip snippets
+.
+├── init.lua
+├── lsp/
+│   ├── basedpyright.lua
+│   ├── clangd.lua
+│   ├── lua_ls.lua
+│   └── ruff.lua
+└── lua/
+    ├── config/          # Core configuration
+    ├── plugins/         # Plugin setup
+    ├── snippets/        # LuaSnip snippets
+    ├── ui/              # Statusline, tabline, highlights
+    └── utils/           # Shared helper modules
 ```
 
 ---
@@ -106,12 +235,12 @@ Leader key: `<Space>`
 
 ## Tabs
 
-| Key          | Action                         |
-| ------------ | ------------------------------ |
-| `<leader>to` | New tab                        |
-| `<leader>tx` | Close tab                      |
-| `<leader>tn` | Next tab                       |
-| `<leader>tp` | Previous tab                   |
+| Key          | Action       |
+| ------------ | ------------ |
+| `<leader>to` | New tab      |
+| `<leader>tx` | Close tab    |
+| `<leader>tn` | Next tab     |
+| `<leader>tp` | Previous tab |
 
 ---
 
@@ -120,17 +249,17 @@ Leader key: `<Space>`
 | Key          | Action                |
 | ------------ | --------------------- |
 | `gd`         | Go to definition      |
+| `gD`         | Go to declaration     |
 | `gr`         | References            |
-| `gi`         | Implementations       |
-| `K`          | Hover                 |
+| `gi`         | Go to implementation  |
+| `gt`         | Go to type definition |
+| `K`          | Hover documentation   |
 | `gl`         | Line diagnostics      |
 | `<leader>ca` | Code actions          |
 | `<leader>rn` | Rename symbol         |
 | `<leader>cf` | Format document       |
 | `<leader>ds` | Document symbols      |
 | `<leader>ws` | Workspace symbols     |
-| `<leader>dd` | Document diagnostics  |
-| `<leader>dD` | Workspace diagnostics |
 | `<C-k>`      | Signature help        |
 
 ---
@@ -186,16 +315,15 @@ Leader key: `<Space>`
 
 ---
 
-## Plugins
+# Plugins
 
 * blink.cmp
 * LuaSnip
 * nvim-treesitter
 * fzf-lua
 * mini.nvim
-* nvim-tree
+* nvim-tree.lua
 * flutter-tools.nvim
 * gitsigns.nvim
 * catppuccin
 
----

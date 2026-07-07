@@ -20,6 +20,17 @@ M.capabilities = vim.tbl_deep_extend(
 )
 
 -----------------------------------------------------------------------
+-- Format
+-----------------------------------------------------------------------
+local function format(opts)
+    opts = opts or {}
+
+    vim.lsp.buf.format(vim.tbl_extend("force", {
+        async = true,
+    }, opts))
+end
+
+-----------------------------------------------------------------------
 -- Buffer Attach
 -----------------------------------------------------------------------
 
@@ -33,7 +44,26 @@ function M.on_attach(client, bufnr)
             bufnr = bufnr,
         })
     end
+    -------------------------------------------------------------------
+    -- Autocommand for format on save if client supports formatting
+    -------------------------------------------------------------------
+    if client:supports_method("textDocument/formatting") then
+        local group = vim.api.nvim_create_augroup(
+            "LspFormat" .. bufnr,
+            { clear = true }
+        )
 
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = group,
+            buffer = bufnr,
+            callback = function()
+                format({
+                    async = false,
+                    bufnr = bufnr,
+                })
+            end,
+        })
+    end
     -------------------------------------------------------------------
     -- Buffer-local mapping helper
     -------------------------------------------------------------------
@@ -49,7 +79,11 @@ function M.on_attach(client, bufnr)
     -------------------------------------------------------------------
     -- Navigation
     -------------------------------------------------------------------
-
+    bufmap("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
+    bufmap("n", "gi", vim.lsp.buf.implementation, "Goto implementation")
+    bufmap("n", "gt", vim.lsp.buf.type_definition, "Goto type definition")
+    bufmap("n", "<leader>ws", vim.lsp.buf.workspace_symbol, "Workspace symbols")
+    bufmap("n", "<leader>ds", vim.lsp.buf.document_symbol, "Document symbols")
     bufmap("n", "gd", vim.lsp.buf.definition, "Goto definition")
     bufmap("n", "gr", vim.lsp.buf.references, "List references")
     bufmap("n", "K", vim.lsp.buf.hover, "Hover documentation")
@@ -60,8 +94,9 @@ function M.on_attach(client, bufnr)
 
     bufmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code actions")
     bufmap("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-    bufmap("n", "<leader>cf", vim.lsp.buf.format, "Format document")
-
+    bufmap("n", "<leader>cf", function()
+        format()
+    end, "Format document")
     -------------------------------------------------------------------
     -- Diagnostics
     -------------------------------------------------------------------
@@ -86,4 +121,5 @@ function M.numbered_code_actions()
         vim.lsp.buf.code_action()
     end)
 end
+
 return M
