@@ -112,7 +112,6 @@ Leader key: `<Space>`
 | `<leader>tx` | Close tab                      |
 | `<leader>tn` | Next tab                       |
 | `<leader>tp` | Previous tab                   |
-| `<leader>tf` | Open current buffer in new tab |
 
 ---
 

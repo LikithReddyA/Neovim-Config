@@ -3,6 +3,7 @@
 --
 -- Responsible for rendering the left gutter:
 --   • Fold indicators
+--   • Line numbers
 --   • (Future) Git signs
 --   • (Future) Breakpoints
 --   • (Future) Diagnostics
@@ -10,9 +11,13 @@
 
 local M = {}
 
---- Returns the fold indicator for the current line.
+-----------------------------------------------------------------------
+-- Fold Indicator
+-----------------------------------------------------------------------
+
+---Returns the fold indicator for the current line.
 ---
---- Symbols:
+---Symbols:
 ---     Closed fold
 ---     Fold starts here
 ---      No fold
@@ -36,4 +41,35 @@ function M.fold_indicator()
     return "  "
 end
 
+-----------------------------------------------------------------------
+-- Line Number
+-----------------------------------------------------------------------
+
+---Returns the formatted line number.
+---
+---@return string
+function M.line_number()
+    if not vim.wo.number then
+        return ""
+    end
+
+    -- Current line
+    if vim.v.relnum == 0 then
+        return string.format("%%#CursorLineNr#%-4d", vim.v.lnum)
+    end
+
+    -- Relative numbers
+    if vim.wo.relativenumber then
+        return string.format(
+            "%%#StatusColumnRelative# %2d",
+            vim.v.relnum
+        )
+    end
+
+    -- Absolute numbers
+    return string.format(
+        "%%#LineNr# %2d",
+        vim.v.lnum
+    )
+end
 return M

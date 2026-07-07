@@ -21,8 +21,39 @@ api.nvim_set_hl(0, "StError", { link = "DiagnosticError" })
 api.nvim_set_hl(0, "StWarn", { link = "DiagnosticWarn" })
 
 -----------------------------------------------------------------------
+-- TabLine
+-----------------------------------------------------------------------
+api.nvim_set_hl(0, "TabLineSel", {
+    fg = "#b4befe", -- Lavender
+    bg = "#45475a", -- Surface1
+    bold = true,
+})
+
+api.nvim_set_hl(0, "TabLine", {
+    fg = "#9399b2", -- Overlay2
+    bg = "#1e1e2e", -- Base
+})
+
+api.nvim_set_hl(0, "TabLineFill", {
+    bg = "#181825", -- Mantle
+})
+
+-----------------------------------------------------------------------
 -- File information
 -----------------------------------------------------------------------
 
 api.nvim_set_hl(0, "WinbarFile", { link = "Directory" })
 api.nvim_set_hl(0, "WinbarModified", { link = "DiagnosticWarn" })
+
+-----------------------------------------------------------------------
+-- Highlight seperators
+-----------------------------------------------------------------------
+api.nvim_set_hl(0, "WinSeparator", {link = "DiagnosticInfo"})
+
+-----------------------------------------------------------------------
+-- Status Column
+-----------------------------------------------------------------------
+-- vim.api.nvim_set_hl(0, "StatusColumnRelative", {
+--     fg = "#9399b2", -- Choose any color you like
+--     italic = true,
+-- })

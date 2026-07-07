@@ -10,16 +10,13 @@ local tabline = require("ui.tabline")
 local statuscolumn = require("ui.statuscolumn")
 
 -----------------------------------------------------------------------
--- Global entry points
---
--- Vim evaluates statusline, tabline and statuscolumn expressions using
--- global Lua functions. These globals act only as adapters and keep
--- the implementation inside dedicated UI modules.
+-- Global Entry Points
 -----------------------------------------------------------------------
 
 _G.Statusline = statusline.render
 _G.Tabline = tabline.render
 _G.StatusColumnFold = statuscolumn.fold_indicator
+_G.StatusColumnNumber = statuscolumn.line_number
 
 -----------------------------------------------------------------------
 -- UI Options
@@ -32,4 +29,4 @@ vim.opt.statusline = "%!v:lua.Statusline()"
 vim.opt.tabline = "%!v:lua.Tabline()"
 
 vim.opt.statuscolumn =
-"%s%{%v:lua.StatusColumnFold()%} %=%{&rnu ? v:relnum ? v:relnum : v:lnum : v:lnum} "
+    "%s%{%v:lua.StatusColumnFold()%}%{%v:lua.StatusColumnNumber()%}"

@@ -18,6 +18,8 @@ local parsers = {
     "dart",
     "json",
     "lua",
+    "html",
+    "markdown",
 }
 
 treesitter.install(parsers)

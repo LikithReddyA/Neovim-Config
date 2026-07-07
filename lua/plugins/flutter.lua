@@ -95,7 +95,7 @@ require("flutter-tools").setup({
         auto_open = false,
 
         -- Open outline in a vertical split.
-        open_cmd = "30vnew",
+        open_cmd = "45vnew",
     },
 
     -------------------------------------------------------------------

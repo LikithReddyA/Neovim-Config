@@ -64,3 +64,30 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end,
 })
+
+-----------------------------------------------------------------------
+-- Terminal
+-----------------------------------------------------------------------
+
+local terminal_group = vim.api.nvim_create_augroup("Terminal", {
+    clear = true,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = terminal_group,
+    callback = function(args)
+        local bo = vim.bo[args.buf]
+
+        bo.buflisted = false
+        bo.bufhidden = "hide"
+        bo.swapfile = false
+
+        vim.cmd.startinsert()
+    end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = terminal_group,
+    pattern = "term://*",
+    command = "startinsert",
+})

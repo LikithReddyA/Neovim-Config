@@ -65,7 +65,7 @@ blink.setup({
 
         -- Show inline suggestion preview.
         ghost_text = {
-            enabled = true,
+            enabled = false,
         },
     },
 

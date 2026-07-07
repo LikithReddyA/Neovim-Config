@@ -92,6 +92,13 @@ opt.shortmess:append("c")
 opt.clipboard:append("unnamedplus")
 
 -----------------------------------------------------------------------
+-- Key Mapping Timeouts
+-----------------------------------------------------------------------
+
+opt.timeout = true      -- Enable mapping timeouts
+opt.timeoutlen = 300    -- Wait 300ms for key sequence completion
+
+-----------------------------------------------------------------------
 -- Folding
 -----------------------------------------------------------------------
 
@@ -109,5 +116,9 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- inside the custom statuscolumn instead.
 opt.foldcolumn = "0"
 
-opt.fillchars = "fold: "
+opt.fillchars:append({
+  fold = " ",
+  vert = "┃",
+  horiz = "━",
+})
 opt.foldtext = ""

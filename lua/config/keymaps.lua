@@ -133,6 +133,21 @@ map("n", "<C-l>", "<C-w>l", {
     desc = "Focus right split",
 })
 
+map("n", "<M-Up>", "<cmd>resize +2<CR>", {
+    desc = "Increase window height",
+})
+
+map("n", "<M-Down>", "<cmd>resize -2<CR>", {
+    desc = "Decrease window height",
+})
+
+map("n", "<M-Left>", "<cmd>vertical resize -2<CR>", {
+    desc = "Decrease window width",
+})
+
+map("n", "<M-Right>", "<cmd>vertical resize +2<CR>", {
+    desc = "Increase window width",
+})
 -----------------------------------------------------------------------
 -- Tabs
 -----------------------------------------------------------------------
@@ -151,10 +166,6 @@ map("n", "<leader>tn", "<Cmd>tabnext<CR>", {
 
 map("n", "<leader>tp", "<Cmd>tabprevious<CR>", {
     desc = "Previous tab",
-})
-
-map("n", "<leader>tf", "<Cmd>tabnew %<CR>", {
-    desc = "Current buffer in new tab",
 })
 
 -----------------------------------------------------------------------
@@ -237,8 +248,6 @@ end, {
 -----------------------------------------------------------------------
 
 local MiniFiles = require("mini.files")
-local MiniPick = require("mini.pick")
-local MiniExtra = require("mini.extra")
 
 map("n", "-", function()
     MiniFiles.open()
@@ -289,15 +298,6 @@ end, {
     desc = "Neovim config",
 })
 
-map("n", "<leader>fl", function()
-    fzf.files({
-        cwd = "lib",
-        prompt = "Flutter lib ❯ ",
-    })
-end, {
-    desc = "Flutter lib",
-})
-
 map("n", "<leader>fr", fzf.resume, {
     desc = "Resume last search",
 })
@@ -326,42 +326,6 @@ end, {
 map("n", "<leader>cA", lsp.numbered_code_actions, {
     desc = "Numbered code actions",
 })
-
------------------------------------------------------------------------
--- Flutter
------------------------------------------------------------------------
-
--- map("n", "<leader>fr", "<Cmd>FlutterRun<CR>", {
---     desc = "Run Flutter app",
--- })
---
--- map("n", "<leader>fR", "<Cmd>FlutterRestart<CR>", {
---     desc = "Hot restart",
--- })
---
--- map("n", "<leader>fh", "<Cmd>FlutterReload<CR>", {
---     desc = "Hot reload",
--- })
---
--- map("n", "<leader>fd", "<Cmd>FlutterDevices<CR>", {
---     desc = "Flutter devices",
--- })
---
--- map("n", "<leader>fe", "<Cmd>FlutterEmulators<CR>", {
---     desc = "Flutter emulators",
--- })
---
-map("n", "<leader>fo", "<Cmd>FlutterOutlineToggle<CR>", {
-    desc = "Flutter outline",
-})
---
--- map("n", "<leader>fgl", "<Cmd>FlutterLogToggle<CR>", {
---     desc = "Flutter log",
--- })
---
--- map("n", "<leader>fq", "<Cmd>FlutterQuit<CR>", {
---     desc = "Quit Flutter app",
--- })
 
 -----------------------------------------------------------------------
 -- Git
@@ -459,3 +423,41 @@ map({ "i", "s" }, "<C-e>", function()
 end, {
     desc = "Next snippet choice",
 })
+
+
+map("i", "jk", "<Esc>", { desc = "Exit Insert Mode" })
+
+-----------------------------------------------------------------------
+-- Terminal
+-----------------------------------------------------------------------
+
+local terminal = require("utils.terminal")
+
+map({ "n", "i", "t" }, "<leader>tf", terminal.toggle_float, {
+    desc = "Toggle floating terminal",
+})
+
+map({ "n", "i", "t" }, "<A-i>", terminal.toggle_horizontal, {
+    desc = "Toggle horizontal terminal",
+})
+
+map("t", "jk", [[<C-\><C-n>]], {
+    desc = "Exit terminal mode",
+})
+
+map("t", "<C-h>", [[<C-\><C-n><C-w>h]], {
+    desc = "Go to left window",
+})
+
+map("t", "<C-j>", [[<C-\><C-n><C-w>j]], {
+    desc = "Go to lower window",
+})
+
+map("t", "<C-k>", [[<C-\><C-n><C-w>k]], {
+    desc = "Go to upper window",
+})
+
+map("t", "<C-l>", [[<C-\><C-n><C-w>l]], {
+    desc = "Go to right window",
+})
+
