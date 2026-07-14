@@ -36,4 +36,5 @@ vim.lsp.enable({
     "basedpyright",
     "ruff",
     "clangd",
+    "rust-analyzer",
 })
