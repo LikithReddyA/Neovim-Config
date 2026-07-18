@@ -1,5 +1,9 @@
 return {
-    cmd = { "typescript-language-server", "--stdio" },
+    cmd = {
+        "tsc",
+        "--lsp",
+        "--stdio",
+    },
     init_options = {
         hostInfo = "neovim",
     },
