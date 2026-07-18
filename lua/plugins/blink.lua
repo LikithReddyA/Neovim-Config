@@ -44,7 +44,7 @@ blink.setup({
         list = {
             selection = {
                 -- Preselect the first completion item.
-                preselect = true,
+                preselect = false,
 
                 -- Only insert text after explicit confirmation.
                 auto_insert = false,

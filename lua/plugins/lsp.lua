@@ -37,4 +37,10 @@ vim.lsp.enable({
     "ruff",
     "clangd",
     "rust-analyzer",
+    "ts_ls",
+    "html",
+    "css",
+    "tailwind",
+    "jsonls",
+    "yamls",
 })

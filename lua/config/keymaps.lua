@@ -433,7 +433,7 @@ map("i", "jk", "<Esc>", { desc = "Exit Insert Mode" })
 
 local terminal = require("utils.terminal")
 
-map({ "n", "i", "t" }, "<leader>tf", terminal.toggle_float, {
+map({ "n",  "t" }, "<leader>tf", terminal.toggle_float, {
     desc = "Toggle floating terminal",
 })
 

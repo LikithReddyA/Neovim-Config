@@ -60,7 +60,7 @@ External plugins are only used when they provide functionality beyond Neovim its
 ## Install Core Dependencies
 
 ```bash
-brew install git ripgrep fd fzf
+brew install git ripgrep fd fzf tree-sitter-cli
 ```
 
 ## Install Lua Language Server
@@ -122,6 +122,39 @@ flutter --version
 dart --version
 ```
 
+## Install Web Development Language Servers
+
+Install all frontend language servers:
+
+```bash
+npm install -g \
+    typescript \
+    typescript-language-server \
+    vscode-langservers-extracted \
+    emmet-language-server \
+    @tailwindcss/language-server \
+    yaml-language-server
+```
+
+Verify:
+
+```bash
+typescript-language-server --version
+vscode-html-language-server --version
+vscode-css-language-server --version
+vscode-json-language-server --version
+emmet-language-server --version
+tailwindcss-language-server --version
+yaml-language-server --version
+```
+
+> `vscode-langservers-extracted` installs:
+>
+> - HTML Language Server
+> - CSS Language Server
+> - JSON Language Server
+> - ESLint Language Server
+
 ---
 
 # Features
@@ -144,14 +177,26 @@ dart --version
 
 ---
 
-# Supported Languages
+## Supported Languages
 
-| Language       | Language Server      | Formatter     |
-| -------------- | -------------------- | ------------- |
-| Lua            | `lua_ls`             | `lua_ls`      |
-| Python         | `basedpyright`       | `ruff`        |
-| C/C++          | `clangd`             | `clangd`      |
-| Dart / Flutter | `flutter-tools.nvim` | `dart format` |
+| Language       | Language Server         | Formatter           |
+| -------------- | ----------------------- | ------------------- |
+| Lua            | `lua_ls`                | `lua_ls` / `stylua` |
+| Python         | `basedpyright`          | `ruff`              |
+| C              | `clangd`                | `clang-format`      |
+| C++            | `clangd`                | `clang-format`      |
+| JavaScript     | `ts_ls`                 | Prettier / Biome    |
+| TypeScript     | `ts_ls`                 | Prettier / Biome    |
+| HTML           | `html`                  | Prettier            |
+| CSS            | `cssls`                 | Prettier            |
+| SCSS           | `cssls`                 | Prettier            |
+| LESS           | `cssls`                 | Prettier            |
+| JSON           | `jsonls`                | Prettier            |
+| YAML           | `yamlls`                | Prettier            |
+| Tailwind CSS   | `tailwindcss`           | —                   |
+| Emmet          | `emmet_language_server` | —                   |
+| Dart / Flutter | `flutter-tools.nvim`    | `dart format`       |
+
 
 ---
 
